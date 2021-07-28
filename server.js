@@ -2,6 +2,7 @@ const express = require('express');
 const { animals } = require('./data/animals.json');
 const fs = require('fs');
 const path = require('path');
+const { application } = require('express');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -10,6 +11,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
+// add folders from the public source
+app.use(express.static('public')); 
 
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
@@ -87,7 +90,7 @@ function validateAnimal(animal) {
       return false;
     }
     return true;
-  }
+};
 
 app.get('/api/animals', (req, res) => {
     let results = animals;
@@ -119,6 +122,27 @@ app.post('/api/animals', (req, res) => {
     res.json(req.body);
     }
 });
+
+// using res.sendFile(), and all we have to do is tell them where to find the file we want our server to read and send back to the client
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/animals', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+app.get('/zookeepers', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+// The * will act as a wildcard, meaning any route that wasn't previously defined will fall under this request and will receive the homepage as the response
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+
+
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`)

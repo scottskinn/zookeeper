@@ -117,6 +117,27 @@
         "hungry"
       ],
       "id": "11"
+    },
+    {
+      "name": "Billy the Goat",
+      "species": "Goat",
+      "diet": "herbivore",
+      "personalityTraits": [
+        "hungry",
+        "goofy"
+      ],
+      "id": "12"
+    },
+    {
+      "name": "Tanuki",
+      "species": "Raccon bear",
+      "diet": "herbivore",
+      "personalityTraits": [
+        "hungry",
+        "zany",
+        "goofy"
+      ],
+      "id": "13"
     }
   ]
 }
